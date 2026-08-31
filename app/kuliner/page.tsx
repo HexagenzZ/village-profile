@@ -26,7 +26,7 @@ export default function KulinerPage() {
   }, [kulinerList, selectedSubCategory]);
 
   return (
-    <main className="min-h-screen bg-[#fafaf8] text-stone-900 pt-24 pb-20 px-4 sm:px-8 md:px-12">
+    <main className="min-h-screen bg-[#fafaf8] text-stone-900 pt-32 pb-20 px-4 sm:px-8 md:px-12">
       <div className="max-w-7xl mx-auto space-y-6">
         <Link
           href="/"

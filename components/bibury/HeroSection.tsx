@@ -19,7 +19,7 @@ export function HeroSection({ onExploreClick }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative w-full h-[85vh] sm:h-[90vh] min-h-[580px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[88vh] sm:h-[92vh] min-h-[620px] pt-24 sm:pt-28 flex items-center justify-center overflow-hidden">
       {/* Background Scenic Photography */}
       <div className="absolute inset-0 z-0">
         <img

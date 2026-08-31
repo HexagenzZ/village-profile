@@ -27,7 +27,7 @@ const FAQS = [
 
 export default function PetaPanduanPage() {
   return (
-    <main className="min-h-screen bg-[#fafaf8] text-stone-900 pt-24 pb-20 px-4 sm:px-8 md:px-12">
+    <main className="min-h-screen bg-[#fafaf8] text-stone-900 pt-32 pb-20 px-4 sm:px-8 md:px-12">
       <div className="max-w-6xl mx-auto space-y-10">
         <Link
           href="/"
