@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mountain, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Clock } from "lucide-react";
 import { SITE_CONFIG } from "@/data/siteConfig";
 import { VILLAGE_PROFILE } from "@/data/villageProfile";
 
@@ -14,7 +14,7 @@ export function Footer() {
             Desa Cijeruk Bogor
           </h3>
           <p className="text-stone-400 text-xs leading-relaxed">
-            Portal panduan resmi wisata alam, akomodasi penginapan lereng Salak, sentra kuliner tradisional & UMKM Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor, Jawa Barat.
+            Portal profil dan potensi desa fokus pada wisata alam, kuliner, akomodasi, dan sejarah/tokoh Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor, Jawa Barat. Proyek KKN Kolaboratif.
           </p>
           <div className="pt-2 flex items-center space-x-3">
             <a
@@ -52,61 +52,78 @@ export function Footer() {
         {/* Col 2: Navigasi Utama */}
         <div className="space-y-2.5">
           <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-            Navigasi Panduan
+            Eksplorasi Desa
           </h4>
           <ul className="space-y-1.5 text-stone-400">
             <li>
-              <Link href="/penginapan" className="hover:text-white transition">
-                Where to stay / Penginapan di Cijeruk
-              </Link>
-            </li>
-            <li>
               <Link href="/wisata" className="hover:text-white transition">
-                Attractions / Wisata Alam & Curug
+                Wisata & Rekreasi Alam
               </Link>
             </li>
             <li>
               <Link href="/kuliner" className="hover:text-white transition">
-                Food and drink / Kuliner & Kafe
+                Kuliner Khas & Kafe Lereng Salak
               </Link>
             </li>
             <li>
-              <Link href="/sekitar-cijeruk" className="hover:text-white transition">
-                Local area / Destinasi Sekitar Cijeruk
+              <Link href="/akomodasi" className="hover:text-white transition">
+                Akomodasi (Villa & Camping)
               </Link>
             </li>
             <li>
-              <Link href="/umkm-belanja" className="hover:text-white transition">
-                Produk Lokal & Oleh-oleh Cijeruk
+              <Link href="/sejarah-tokoh" className="hover:text-white transition">
+                Sejarah & Tokoh Berpengaruh
+              </Link>
+            </li>
+            <li>
+              <Link href="/terdekat" className="hover:text-white transition">
+                Destinasi Sekitar (Day-Trip)
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* Col 3: Layanan Desa */}
+        {/* Col 3: Layanan & Informasi Resmi */}
         <div className="space-y-2.5">
           <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-            Informasi Desa
+            Informasi & Data
           </h4>
           <ul className="space-y-1.5 text-stone-400">
             <li>
               <Link href="/profil-desa" className="hover:text-white transition">
-                Profil & Sejarah Desa Cijeruk
+                Profil Desa & Infografis Kependudukan
               </Link>
             </li>
             <li>
-              <Link href="/profil-desa#visi-misi" className="hover:text-white transition">
-                Visi, Misi & Struktur Desa
+              <Link href="/blog" className="hover:text-white transition">
+                Blog & Catatan KKN
               </Link>
             </li>
             <li>
-              <Link href="/peta-panduan" className="hover:text-white transition">
-                Peta Desa & Rute Transportasi
-              </Link>
+              <a
+                href="https://bogorkab.go.id/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition flex items-center gap-1"
+              >
+                <span>Portal Bestie Kab. Bogor</span>
+                <span className="text-[10px]">↗</span>
+              </a>
             </li>
             <li>
-              <Link href="/peta-panduan#faq" className="hover:text-white transition">
-                Cijeruk FAQs & Tanya Jawab
+              <a
+                href="https://cijeruk-bogor.desa.id/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition flex items-center gap-1"
+              >
+                <span>Situs Resmi Desa.id</span>
+                <span className="text-[10px]">↗</span>
+              </a>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-white transition">
+                Hubungi Kami & Posko KKN
               </Link>
             </li>
           </ul>
@@ -134,43 +151,39 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bibury-style Horizontal Links Strip */}
+      {/* Horizontal Links Strip */}
       <div className="border-t border-stone-800 py-4 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-stone-400 text-[11px]">
-          <Link href="/penginapan" className="hover:text-stone-200 transition">
-            Where to stay
+          <Link href="/wisata" className="hover:text-stone-200 transition">
+            Wisata
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
           <Link href="/kuliner" className="hover:text-stone-200 transition">
-            Food and drink
+            Kuliner
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/wisata" className="hover:text-stone-200 transition">
-            Things to do in Cijeruk
+          <Link href="/akomodasi" className="hover:text-stone-200 transition">
+            Akomodasi
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/wisata" className="hover:text-stone-200 transition">
-            Photos of Cijeruk
+          <Link href="/sejarah-tokoh" className="hover:text-stone-200 transition">
+            Sejarah & Tokoh
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/peta-panduan" className="hover:text-stone-200 transition">
-            Parking & Transport in Cijeruk
+          <Link href="/terdekat" className="hover:text-stone-200 transition">
+            Terdekat
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/peta-panduan#faq" className="hover:text-stone-200 transition">
-            Cijeruk FAQs
-          </Link>
-          <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/sekitar-cijeruk" className="hover:text-stone-200 transition">
-            Local area
+          <Link href="/blog" className="hover:text-stone-200 transition">
+            Blog
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
           <Link href="/profil-desa" className="hover:text-stone-200 transition">
-            Sitemap / Links
+            Profil Resmi
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/peta-panduan" className="hover:text-stone-200 transition">
-            Privacy Policy
+          <Link href="/contact" className="hover:text-stone-200 transition">
+            Kontak
           </Link>
         </div>
       </div>
@@ -178,7 +191,7 @@ export function Footer() {
       {/* Copyright Notice */}
       <div className="border-t border-stone-900 bg-[#0d0d0d] py-4 px-4 sm:px-8 text-center text-[11px] text-stone-400">
         <p>
-          © Copyright 2010-{new Date().getFullYear()}, Cijeruk Village & Tourism Portal. All Rights Reserved.
+          © {new Date().getFullYear()} Website Profil Desa Cijeruk • Disusun oleh Tim KKN Mahasiswa untuk Pemerintah Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor.
         </p>
       </div>
     </footer>

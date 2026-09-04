@@ -1,4 +1,5 @@
 import { VILLAGE_PROFILE } from "@/data/villageProfile";
+import { getProfilDesa } from "@/lib/dataService";
 import {
   Mountain,
   Users,
@@ -77,7 +78,9 @@ const PUBLIC_SERVICES = [
   },
 ];
 
-export default function ProfilDesaPage() {
+export default async function ProfilDesaPage() {
+  const profil = await getProfilDesa();
+
   return (
     <main className="min-h-screen bg-[#fafaf8] text-stone-900 pt-28 pb-20 px-4 sm:px-8 md:px-12">
       <div className="max-w-6xl mx-auto space-y-12">
@@ -91,19 +94,56 @@ export default function ProfilDesaPage() {
         </Link>
 
         {/* Hero Section */}
-        <div className="relative rounded-xl overflow-hidden bg-stone-900 text-white p-8 sm:p-12 shadow-sm">
+        <div className="relative rounded-2xl overflow-hidden bg-stone-900 text-white p-8 sm:p-12 shadow-sm">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2d5026] text-white text-xs font-medium uppercase tracking-wider">
               <Mountain className="w-4 h-4" />
-              Pemerintah Desa Cijeruk
+              Pemerintah {profil.namaDesa}
             </span>
             <h1 className="text-3xl sm:text-5xl font-serif-title font-semibold text-white tracking-tight">
-              Profil, Demografi & Pemerintahan Desa
+              Profil, Demografi & Pemerintahan {profil.namaDesa}
             </h1>
             <p className="text-base text-stone-300 leading-relaxed font-light">
-              {VILLAGE_PROFILE.overview}
+              {profil.ringkasanUmum || VILLAGE_PROFILE.overview}
             </p>
           </div>
+        </div>
+
+        {/* Sumber Data Resmi Terintegrasi (Scraped Sources) */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-4">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#2d5026] block">
+                Sumber Data Resmi Terintegrasi (Scraped Data)
+              </span>
+              <h2 className="text-lg font-serif-title font-bold text-stone-900 mt-0.5">
+                Portal Wilayah Kabupaten Bogor & Sistem Resmi Desa
+              </h2>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={profil.sumberResmi?.portalBestieBogor || "https://bogorkab.go.id/"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition"
+              >
+                <span>Portal Bestie Kab. Bogor</span>
+                <span className="text-[10px]">↗</span>
+              </a>
+              <a
+                href={profil.sumberResmi?.situsResmiDesaId || "https://cijeruk-bogor.desa.id/"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2d5026] hover:bg-[#223e1d] text-white text-xs font-semibold transition shadow-xs"
+              >
+                <span>Situs Resmi Desa.id</span>
+                <span className="text-[10px]">↗</span>
+              </a>
+            </div>
+          </div>
+          <p className="text-xs text-stone-500 leading-relaxed">
+            Data administratif formal di bawah ini disarikan sebagai infografis ringkas untuk melengkapi informasi pariwisata, kuliner, dan sejarah Desa Cijeruk. Untuk keperluan administrasi resmi lanjutan, silakan gunakan tautan portal resmi di atas.
+          </p>
         </div>
 
         {/* Key Statistics Grid */}
@@ -111,7 +151,7 @@ export default function ProfilDesaPage() {
           <div className="p-4 rounded-lg bg-white border border-stone-200 text-center shadow-xs">
             <Users className="w-5 h-5 text-[#2d5026] mx-auto mb-2" />
             <span className="text-xl sm:text-2xl font-serif-title font-bold text-stone-900">
-              {VILLAGE_PROFILE.statistics.population.toLocaleString("id-ID")}
+              {(profil.statistik?.jumlahPenduduk || VILLAGE_PROFILE.statistics.population).toLocaleString("id-ID")}
             </span>
             <p className="text-xs text-stone-500 mt-0.5">Jiwa Penduduk</p>
           </div>
@@ -119,7 +159,7 @@ export default function ProfilDesaPage() {
           <div className="p-4 rounded-lg bg-white border border-stone-200 text-center shadow-xs">
             <Home className="w-5 h-5 text-[#2d5026] mx-auto mb-2" />
             <span className="text-xl sm:text-2xl font-serif-title font-bold text-stone-900">
-              {VILLAGE_PROFILE.statistics.households.toLocaleString("id-ID")}
+              {(profil.statistik?.jumlahKk || VILLAGE_PROFILE.statistics.households).toLocaleString("id-ID")}
             </span>
             <p className="text-xs text-stone-500 mt-0.5">Kepala Keluarga</p>
           </div>
@@ -127,7 +167,7 @@ export default function ProfilDesaPage() {
           <div className="p-4 rounded-lg bg-white border border-stone-200 text-center shadow-xs">
             <Compass className="w-5 h-5 text-[#2d5026] mx-auto mb-2" />
             <span className="text-xl sm:text-2xl font-serif-title font-bold text-stone-900">
-              {VILLAGE_PROFILE.statistics.areaSizeKm2} km²
+              {profil.statistik?.luasWilayahKm2 || VILLAGE_PROFILE.statistics.areaSizeKm2} km²
             </span>
             <p className="text-xs text-stone-500 mt-0.5">Luas Wilayah</p>
           </div>
@@ -135,7 +175,7 @@ export default function ProfilDesaPage() {
           <div className="p-4 rounded-lg bg-white border border-stone-200 text-center shadow-xs">
             <Mountain className="w-5 h-5 text-[#2d5026] mx-auto mb-2" />
             <span className="text-xl sm:text-2xl font-serif-title font-bold text-stone-900">
-              {VILLAGE_PROFILE.statistics.altitudeMeters} mdpl
+              {profil.statistik?.ketinggianMeter || VILLAGE_PROFILE.statistics.altitudeMeters} mdpl
             </span>
             <p className="text-xs text-stone-500 mt-0.5">Ketinggian Rata-rata</p>
           </div>
@@ -143,7 +183,7 @@ export default function ProfilDesaPage() {
           <div className="p-4 rounded-lg bg-white border border-stone-200 text-center shadow-xs">
             <Building2 className="w-5 h-5 text-[#2d5026] mx-auto mb-2" />
             <span className="text-xl sm:text-2xl font-serif-title font-bold text-stone-900">
-              {VILLAGE_PROFILE.statistics.rwCount} RW / {VILLAGE_PROFILE.statistics.rtCount} RT
+              {profil.statistik?.jumlahRw || VILLAGE_PROFILE.statistics.rwCount} RW / {profil.statistik?.jumlahRt || VILLAGE_PROFILE.statistics.rtCount} RT
             </span>
             <p className="text-xs text-stone-500 mt-0.5">Wilayah Rukun</p>
           </div>
@@ -265,7 +305,7 @@ export default function ProfilDesaPage() {
             </span>
             <h2 className="text-xl sm:text-2xl font-serif-title font-semibold text-stone-900">Misi Desa Cijeruk</h2>
             <ul className="space-y-3 text-xs sm:text-sm text-stone-600">
-              {VILLAGE_PROFILE.mission.map((item, idx) => (
+              {VILLAGE_PROFILE.mission.map((item: string, idx: number) => (
                 <li key={idx} className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#2d5026] shrink-0 mt-0.5" />
                   <span>{item}</span>
@@ -375,19 +415,19 @@ export default function ProfilDesaPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
             <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
               <span className="text-xs text-stone-500 font-medium uppercase block">Alamat Kantor</span>
-              <span className="text-xs text-stone-900 font-medium mt-1 block leading-relaxed">{VILLAGE_PROFILE.office.address}</span>
+              <span className="text-xs text-stone-900 font-medium mt-1 block leading-relaxed">{profil.kontakKantor?.alamat || VILLAGE_PROFILE.office.address}</span>
             </div>
             <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
               <span className="text-xs text-stone-500 font-medium uppercase block">Telepon / WhatsApp</span>
-              <span className="text-xs text-stone-900 font-medium mt-1 block">{VILLAGE_PROFILE.office.phone}</span>
+              <span className="text-xs text-stone-900 font-medium mt-1 block">{profil.kontakKantor?.telepon || VILLAGE_PROFILE.office.phone}</span>
             </div>
             <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
               <span className="text-xs text-stone-500 font-medium uppercase block">Email Resmi</span>
-              <span className="text-xs text-stone-900 font-medium mt-1 block">{VILLAGE_PROFILE.office.email}</span>
+              <span className="text-xs text-stone-900 font-medium mt-1 block">{profil.kontakKantor?.email || VILLAGE_PROFILE.office.email}</span>
             </div>
             <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
               <span className="text-xs text-stone-500 font-medium uppercase block">Jam Pelayanan</span>
-              <span className="text-xs text-stone-900 font-medium mt-1 block">{VILLAGE_PROFILE.office.operatingHours}</span>
+              <span className="text-xs text-stone-900 font-medium mt-1 block">{profil.kontakKantor?.jamLayanan || VILLAGE_PROFILE.office.operatingHours}</span>
             </div>
           </div>
         </section>

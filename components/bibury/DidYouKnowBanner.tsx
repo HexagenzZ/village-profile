@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, HelpCircle } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export function DidYouKnowBanner() {
   return (
