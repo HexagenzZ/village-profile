@@ -187,10 +187,10 @@ export interface SearchResultItem {
 
 export type DestinationCategory =
   | "wisata"
-  | "penginapan"
+  | "akomodasi"
   | "kuliner"
-  | "sekitar"
-  | "umkm";
+  | "terdekat"
+  | "blog";
 
 export type AccommodationType = "villa" | "resort" | "glamping" | "hotel" | "homestay";
 

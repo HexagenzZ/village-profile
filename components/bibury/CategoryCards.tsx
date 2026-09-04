@@ -15,8 +15,8 @@ const CATEGORY_ITEMS: CategoryCardItem[] = [
   {
     id: "places-to-stay",
     title: "Places to stay",
-    buttonLabel: "Penginapan di Cijeruk",
-    href: "/penginapan",
+    buttonLabel: "Akomodasi di Cijeruk",
+    href: "/akomodasi",
     image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
     subtitle: "Villa eksklusif, resort alami, & glamping berlatar Gunung Salak",
   },

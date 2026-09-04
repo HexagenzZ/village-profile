@@ -72,10 +72,10 @@ export function FeatureStories({ onOpenBukitAlesano, onOpenVilla }: FeatureStori
             </div>
             <div className="pt-2">
               <Link
-                href="/penginapan"
+                href="/akomodasi"
                 className="inline-block px-6 py-2.5 rounded-md bg-[#2d5026] hover:bg-[#223e1d] text-white text-xs sm:text-sm font-medium tracking-wide shadow transition-colors"
               >
-                Pilihan Penginapan Cijeruk
+                Pilihan Akomodasi Cijeruk
               </Link>
             </div>
           </div>

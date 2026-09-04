@@ -1,7 +1,7 @@
 "use client";
 
 import { CATEGORIES } from "@/data/categories";
-import { Mountain, Bed, UtensilsCrossed, Compass, ShoppingBag, Grid } from "lucide-react";
+import { Mountain, Bed, UtensilsCrossed, Compass, BookOpen, Grid } from "lucide-react";
 import { DestinationCategory } from "@/lib/types";
 
 interface CategoryFilterProps {
@@ -12,10 +12,10 @@ interface CategoryFilterProps {
 const iconMap = {
   all: Grid,
   wisata: Mountain,
-  penginapan: Bed,
+  akomodasi: Bed,
   kuliner: UtensilsCrossed,
-  sekitar: Compass,
-  umkm: ShoppingBag,
+  terdekat: Compass,
+  blog: BookOpen,
 };
 
 export function CategoryFilter({

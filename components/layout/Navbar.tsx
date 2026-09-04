@@ -354,16 +354,8 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* Right Action: Admin Panel Access */}
-            <div className="flex items-center space-x-2.5">
-              <Link
-                href="/admin"
-                className="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-md bg-stone-100 hover:bg-[#2d5026] text-stone-700 hover:text-white text-xs font-semibold tracking-wide border border-stone-200 hover:border-transparent transition-all cursor-pointer shadow-xs"
-                title="Kelola Konten Desa melalui Admin Panel"
-              >
-                Admin CMS
-              </Link>
-
+            {/* Right Action: Mobile Menu Trigger only — Admin panel accessed directly via /admin URL */}
+            <div className="flex items-center">
               {/* Mobile Menu Trigger */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -471,13 +463,6 @@ export function Navbar() {
                 <Search className="w-3.5 h-3.5 text-[#2d5026]" />
                 <span>Pencarian</span>
               </button>
-              <Link
-                href="/admin"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex-1 inline-flex items-center justify-center py-2.5 px-3 rounded-lg bg-[#2d5026] text-white text-xs font-semibold text-center"
-              >
-                Admin Panel →
-              </Link>
             </div>
           </div>
         )}

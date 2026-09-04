@@ -37,10 +37,10 @@ export function DidYouKnowBanner() {
           <p className="pt-2 text-stone-400">
             Untuk pertanyaan yang sering diajukan mengenai akomodasi, parkir, dan rute perjalanan menuju Cijeruk, silakan kunjungi laman{" "}
             <Link
-              href="/peta-panduan#faq"
+              href="/profil-desa"
               className="text-[#68b35c] hover:text-[#88d97a] underline font-medium"
             >
-              Cijeruk FAQs & Panduan
+              Profil & Panduan Desa Cijeruk
             </Link>
             .
           </p>
