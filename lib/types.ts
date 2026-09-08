@@ -143,6 +143,8 @@ export interface BlogPostItem {
 
 export interface ProfilDesaItem {
   namaDesa: string;
+  heroImage?: string;
+  heroTagline?: string;
   ringkasanUmum: string;
   sejarahDesa: string;
   sumberResmi: {

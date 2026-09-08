@@ -26,6 +26,7 @@ import {
   getFeaturedTokoh,
   getFeaturedTerdekat,
   getFeaturedBlog,
+  getProfilDesa,
 } from "@/lib/dataService";
 
 // Empty state component for when no CMS data exists
@@ -68,6 +69,7 @@ function isPlaceOpenNow(jamBuka: string, jamTutup: string): boolean {
 }
 
 export default async function HomePage() {
+  const profil = await getProfilDesa();
   const [
     featuredWisata,
     featuredKuliner,
@@ -95,8 +97,8 @@ export default async function HomePage() {
         {/* Background Scenic Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2000&q=85"
-            alt="Pemandangan Lereng Gunung Salak Cijeruk"
+            src={profil?.heroImage || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2000&q=85'}
+            alt={profil?.namaDesa ? `Situs ${profil.namaDesa}` : 'Pemandangan Lereng Gunung Salak Cijeruk'}
             fill
             priority
             className="object-cover object-center opacity-45 scale-105 transition-transform duration-1000"
@@ -118,8 +120,8 @@ export default async function HomePage() {
               Pesona Asri, Cita Rasa & Warisan Cerita Cijeruk
             </h1>
             <p className="max-w-3xl mx-auto text-base sm:text-xl text-stone-200 font-light leading-relaxed">
-              Panduan lengkap pariwisata alam, kuliner khas Sunda, villa
-              peristirahatan, serta jejak sejarah tokoh Desa Cijeruk.
+              {profil?.heroTagline ||
+                "Panduan lengkap pariwisata alam, kuliner khas Sunda, villa peristiratan, serta jejak sejarah tokoh Desa Cijeruk."}
             </p>
           </div>
 

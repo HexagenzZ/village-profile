@@ -364,8 +364,19 @@ export async function getProfilDesa(): Promise<ProfilDesaItem | null> {
     });
     if (result.docs && result.docs.length > 0) {
       const doc: any = result.docs[0];
+
+      function getFotoUrl(d: any): string {
+        if (!d) return '';
+        if (d.url) return d.url;
+        if (d.fotoUrl) return d.fotoUrl;
+        if (d.foto && d.foto.url) return d.foto.url;
+        return '';
+      }
+
       return {
         namaDesa: doc.namaDesa || 'Desa Cijeruk',
+        heroImage: getFotoUrl(doc.heroImage),
+        heroTagline: doc.heroTagline || '',
         ringkasanUmum: doc.ringkasanUmum || '',
         sejarahDesa: doc.sejarahDesa || '',
         sumberResmi: doc.sumberResmi || {

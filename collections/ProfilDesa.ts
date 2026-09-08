@@ -14,6 +14,18 @@ export const ProfilDesa: CollectionConfig = {
   },
   fields: [
     {
+      name: 'heroImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Foto Hero (Beranda)',
+    },
+    {
+      name: 'heroTagline',
+      type: 'textarea',
+      label: 'Tagline Hero',
+      defaultValue: 'Pesona alam yang memikat hati, keragaman budaya, dan kuliner autentik, semuanya tersedia di Cijeruk.',
+    },
+    {
       name: 'namaDesa',
       type: 'text',
       required: true,
