@@ -54,13 +54,13 @@ export function Navbar() {
   const DATA_RESMI_DROPDOWN: DropdownItem[] = [
     {
       label: "Bestie",
-      href: "https://bogorkab.go.id/",
+      href: "https://bestie.bogorkab.go.id/profilwilayah.php?cKec=28&cKel=236&cdx=01161aaa0b6d1345dd8fe4e481144d84",
       isExternal: true,
       description: "Portal profil wilayah resmi Kabupaten Bogor",
     },
     {
       label: "Situs Resmi Desa",
-      href: "https://cijeruk-bogor.desa.id/",
+      href: "https://cijeruk-cijeruk.desa.id/",
       isExternal: true,
       description: "Portal layanan & administrasi resmi desa.id",
     },
@@ -82,35 +82,79 @@ export function Navbar() {
       label: "Wisata & Rekreasi",
       href: "/wisata",
       dropdown: [
-        { label: "Jelajah Alam", href: "/wisata?sub=jelajah-alam", description: "Curug alami & keasrian hutan lereng Salak" },
-        { label: "Outdoor Activity", href: "/wisata?sub=outdoor-activity", description: "Trekking perkebunan kopi & agrowisata" },
-        { label: "Aktivitas Keluarga dan Anak", href: "/wisata?sub=aktivitas-keluarga", description: "Petik nanas madu & taman edukasi" },
-        { label: "Spot Foto & Instagrammable", href: "/wisata?sub=spot-foto", description: "Panorama city light & sunrise Alesano" },
+        {
+          label: "Jelajah Alam",
+          href: "/wisata?sub=jelajah-alam",
+          description: "Curug alami & keasrian hutan lereng Salak",
+        },
+        {
+          label: "Outdoor Activity",
+          href: "/wisata?sub=outdoor-activity",
+          description: "Trekking perkebunan kopi & agrowisata",
+        },
+        {
+          label: "Aktivitas Keluarga dan Anak",
+          href: "/wisata?sub=aktivitas-keluarga",
+          description: "Petik nanas madu & taman edukasi",
+        },
+        {
+          label: "Spot Foto & Instagrammable",
+          href: "/wisata?sub=spot-foto",
+          description: "Panorama city light & sunrise Alesano",
+        },
       ],
     },
     {
       label: "Kuliner",
       href: "/kuliner",
       dropdown: [
-        { label: "Open Now", href: "/kuliner?sub=open-now", description: "Tempat kuliner yang sedang buka hari ini" },
-        { label: "Wajib Coba", href: "/kuliner?sub=wajib-coba", description: "Nasi liwet Sunda gurih & hidangan legendaris" },
-        { label: "Cafe & Resto Recommended", href: "/kuliner?sub=cafe-resto", description: "Kedai kopi lereng Salak & resto panorama" },
+        {
+          label: "Open Now",
+          href: "/kuliner?sub=open-now",
+          description: "Tempat kuliner yang sedang buka hari ini",
+        },
+        {
+          label: "Wajib Coba",
+          href: "/kuliner?sub=wajib-coba",
+          description: "Nasi liwet Sunda gurih & hidangan legendaris",
+        },
+        {
+          label: "Cafe & Resto Recommended",
+          href: "/kuliner?sub=cafe-resto",
+          description: "Kedai kopi lereng Salak & resto panorama",
+        },
       ],
     },
     {
       label: "Akomodasi",
       href: "/akomodasi",
       dropdown: [
-        { label: "Villa & Resort", href: "/akomodasi?sub=villa-resort", description: "Private pool & villa keluarga view Salak" },
-        { label: "Camping Ground", href: "/akomodasi?sub=camping-ground", description: "Tenda dome & glamping di atas awan" },
+        {
+          label: "Villa & Resort",
+          href: "/akomodasi?sub=villa-resort",
+          description: "Private pool & villa keluarga view Salak",
+        },
+        {
+          label: "Camping Ground",
+          href: "/akomodasi?sub=camping-ground",
+          description: "Tenda dome & glamping di atas awan",
+        },
       ],
     },
     {
       label: "Sejarah & Tokoh",
       href: "/sejarah-tokoh",
       dropdown: [
-        { label: "Tempat Bersejarah", href: "/sejarah-tokoh?tab=sejarah", description: "Situs mata air & jejak perkebunan kopi kuno" },
-        { label: "Tokoh Berpengaruh", href: "/sejarah-tokoh?tab=tokoh", description: "Sesepuh adat, pelestari alam & penggerak desa" },
+        {
+          label: "Tempat Bersejarah",
+          href: "/sejarah-tokoh?tab=sejarah",
+          description: "Situs mata air & jejak perkebunan kopi kuno",
+        },
+        {
+          label: "Tokoh Berpengaruh",
+          href: "/sejarah-tokoh?tab=tokoh",
+          description: "Sesepuh adat, pelestari alam & penggerak desa",
+        },
       ],
     },
     {
@@ -138,7 +182,7 @@ export function Navbar() {
             {/* Left note */}
             <div className="hidden sm:flex items-center space-x-2 text-stone-500">
               <span className="inline-block w-2 h-2 rounded-full bg-[#2d5026]" />
-              <span>Portal Profil & Potensi Desa Cijeruk (Proyek KKN)</span>
+              <span>Portal Profil & Potensi Desa Cijeruk</span>
             </div>
 
             {/* Right: Exactly Top Tier 3 Items */}
@@ -151,7 +195,9 @@ export function Navbar() {
               >
                 <button
                   onClick={() =>
-                    setOpenDropdown(openDropdown === "data-resmi" ? null : "data-resmi")
+                    setOpenDropdown(
+                      openDropdown === "data-resmi" ? null : "data-resmi",
+                    )
                   }
                   className={`flex items-center gap-1 uppercase tracking-wider py-0.5 transition-colors cursor-pointer ${
                     openDropdown === "data-resmi" || pathname === "/profil-desa"
@@ -163,7 +209,9 @@ export function Navbar() {
                   <span>Data & Profil Resmi</span>
                   <ChevronDown
                     className={`w-3 h-3 text-stone-500 transition-transform ${
-                      openDropdown === "data-resmi" ? "rotate-180 text-[#2d5026]" : ""
+                      openDropdown === "data-resmi"
+                        ? "rotate-180 text-[#2d5026]"
+                        : ""
                     }`}
                   />
                 </button>
@@ -209,7 +257,7 @@ export function Navbar() {
                             {sub.description}
                           </p>
                         </Link>
-                      )
+                      ),
                     )}
                   </div>
                 )}
@@ -236,7 +284,9 @@ export function Navbar() {
                 aria-label="Cari"
               >
                 <Search className="w-3.5 h-3.5" />
-                <span className="hidden md:inline text-[10px] uppercase tracking-wider">Cari</span>
+                <span className="hidden md:inline text-[10px] uppercase tracking-wider">
+                  Cari
+                </span>
               </button>
             </div>
           </div>
@@ -275,7 +325,9 @@ export function Navbar() {
             <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 text-stone-800 font-medium text-[13px] xl:text-[14px]">
               {MAIN_NAV_ITEMS.map((item) => {
                 const isActive =
-                  item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(item.href);
                 const isDropdownOpen = openDropdown === item.label;
 
                 if (!item.dropdown) {
@@ -362,7 +414,11 @@ export function Navbar() {
                 className="lg:hidden p-2 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 transition cursor-pointer"
                 aria-label="Buka Menu"
               >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>
@@ -401,7 +457,7 @@ export function Navbar() {
                       <span>{item.label}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
                     </Link>
-                  )
+                  ),
                 )}
                 <Link
                   href="/blog"
@@ -469,7 +525,10 @@ export function Navbar() {
       </header>
 
       {/* Instant Search Modal with Fuse.js */}
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </>
   );
 }

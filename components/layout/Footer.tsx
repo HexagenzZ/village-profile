@@ -14,7 +14,9 @@ export function Footer() {
             Desa Cijeruk Bogor
           </h3>
           <p className="text-stone-400 text-xs leading-relaxed">
-            Portal profil dan potensi desa fokus pada wisata alam, kuliner, akomodasi, dan sejarah/tokoh Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor, Jawa Barat. Proyek KKN Kolaboratif.
+            Portal profil dan potensi desa fokus pada wisata alam, kuliner,
+            akomodasi, dan sejarah/tokoh Desa Cijeruk, Kecamatan Cijeruk,
+            Kabupaten Bogor, Jawa Barat. Proyek KKN Kolaboratif.
           </p>
           <div className="pt-2 flex items-center space-x-3">
             <a
@@ -71,7 +73,10 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/sejarah-tokoh" className="hover:text-white transition">
+              <Link
+                href="/sejarah-tokoh"
+                className="hover:text-white transition"
+              >
                 Sejarah & Tokoh Berpengaruh
               </Link>
             </li>
@@ -96,23 +101,23 @@ export function Footer() {
             </li>
             <li>
               <Link href="/blog" className="hover:text-white transition">
-                Blog & Catatan KKN
+                Blog & Catatan dari desa
               </Link>
             </li>
             <li>
               <a
-                href="https://bogorkab.go.id/"
+                href="https://bestie.bogorkab.go.id/profilwilayah.php?cKec=28&cKel=236&cdx=01161aaa0b6d1345dd8fe4e481144d84"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition flex items-center gap-1"
               >
-                <span>Portal Bestie Kab. Bogor</span>
+                <span>Portal Bestie Kab. Bogor Desa Cijeruk</span>
                 <span className="text-[10px]">↗</span>
               </a>
             </li>
             <li>
               <a
-                href="https://cijeruk-bogor.desa.id/"
+                href="https://cijeruk-cijeruk.desa.id/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition flex items-center gap-1"
@@ -123,7 +128,7 @@ export function Footer() {
             </li>
             <li>
               <Link href="/contact" className="hover:text-white transition">
-                Hubungi Kami & Posko KKN
+                Hubungi Kami
               </Link>
             </li>
           </ul>
@@ -166,7 +171,10 @@ export function Footer() {
             Akomodasi
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
-          <Link href="/sejarah-tokoh" className="hover:text-stone-200 transition">
+          <Link
+            href="/sejarah-tokoh"
+            className="hover:text-stone-200 transition"
+          >
             Sejarah & Tokoh
           </Link>
           <span className="text-stone-700 hidden sm:inline">|</span>
@@ -191,7 +199,8 @@ export function Footer() {
       {/* Copyright Notice */}
       <div className="border-t border-stone-900 bg-[#0d0d0d] py-4 px-4 sm:px-8 text-center text-[11px] text-stone-400">
         <p>
-          © {new Date().getFullYear()} Website Profil Desa Cijeruk • Disusun oleh Tim KKN Mahasiswa untuk Pemerintah Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor.
+          © {new Date().getFullYear()} Website Profil Desa Cijeruk • Kecamatan
+          Cijeruk, Kabupaten Bogor.
         </p>
       </div>
     </footer>

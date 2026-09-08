@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Search, X, ArrowRight } from "lucide-react";
 import { searchAllItems } from "@/lib/searchService";
 import { SearchResultItem } from "@/lib/types";
@@ -14,9 +14,28 @@ interface SearchModalProps {
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchResultItem[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const results = useMemo(() => {
-    return searchAllItems(query);
+  useEffect(() => {
+    const doSearch = async () => {
+      if (!query.trim()) {
+        setResults([]);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      try {
+        const res = await searchAllItems(query);
+        setResults(res);
+      } catch (err) {
+        console.error('Search error:', err);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    doSearch();
   }, [query]);
 
   if (!isOpen) return null;
@@ -72,6 +91,11 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   </button>
                 ))}
               </div>
+            </div>
+          ) : loading ? (
+            <div className="py-10 text-center text-stone-500">
+              <div className="inline-block animate-spin rounded-full h-6 w-6 border-2 border-stone-300 border-t-[#2d5026]"></div>
+              <p className="text-sm mt-2">Mencari...</p>
             </div>
           ) : results.length === 0 ? (
             <div className="py-10 text-center text-stone-500">

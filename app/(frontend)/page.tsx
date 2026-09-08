@@ -16,6 +16,7 @@ import {
   Calendar,
   ExternalLink,
   ShieldCheck,
+  Plus,
 } from "lucide-react";
 import {
   getFeaturedWisata,
@@ -26,6 +27,33 @@ import {
   getFeaturedTerdekat,
   getFeaturedBlog,
 } from "@/lib/dataService";
+
+// Empty state component for when no CMS data exists
+function EmptyStateSection({
+  title,
+  description,
+  icon: Icon,
+}: {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+}) {
+  return (
+    <div className="bg-stone-50 border border-dashed border-stone-300 rounded-2xl p-8 text-center">
+      <div className="w-12 h-12 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center mx-auto mb-4">
+        <Icon className="w-6 h-6" />
+      </div>
+      <h3 className="text-lg font-serif-title font-bold text-stone-700 mb-2">
+        {title}
+      </h3>
+      <p className="text-sm text-stone-500 max-w-md mx-auto">{description}</p>
+      <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-200 text-stone-600 text-xs font-medium">
+        <Plus className="w-3.5 h-3.5" />
+        <span>Tambah via Admin Panel</span>
+      </div>
+    </div>
+  );
+}
 
 function isPlaceOpenNow(jamBuka: string, jamTutup: string): boolean {
   try {
@@ -97,7 +125,8 @@ export default async function HomePage() {
               Pesona Asri, Cita Rasa & Warisan Cerita Cijeruk
             </h1>
             <p className="max-w-3xl mx-auto text-base sm:text-xl text-stone-200 font-light leading-relaxed">
-              Panduan lengkap pariwisata alam, kuliner khas Sunda, villa peristirahatan, serta jejak sejarah tokoh Desa Cijeruk.
+              Panduan lengkap pariwisata alam, kuliner khas Sunda, villa
+              peristirahatan, serta jejak sejarah tokoh Desa Cijeruk.
             </p>
           </div>
 
@@ -146,13 +175,17 @@ export default async function HomePage() {
       {/* ========================================================================= */}
       <section className="max-w-5xl mx-auto px-4 sm:px-8 py-14 sm:py-20 text-center space-y-4">
         <span className="text-xs font-bold uppercase tracking-widest text-[#2d5026]">
-          Portal Potensi Desa (Proyek KKN)
+          Portal Potensi Desa
         </span>
         <h2 className="text-2xl sm:text-4xl font-serif-title font-bold text-stone-900 leading-tight">
           Menyingkap Keindahan & Cerita yang Belum Terjamah
         </h2>
         <p className="text-sm sm:text-base text-stone-600 leading-relaxed max-w-3xl mx-auto">
-          Jika data statistik administratif dan kependudukan resmi telah terhimpun di portal Pemerintah Kabupaten Bogor dan situs resmi desa.id, website ini hadir untuk menonjolkan jiwa Desa Cijeruk: gemericik curug alami, aroma seduhan kopi lereng Salak, keramahan warga lokal, serta sejarah yang mengalir di setiap sudut kampung.
+          Jika data statistik administratif dan kependudukan resmi telah
+          terhimpun di portal Pemerintah Kabupaten Bogor dan situs resmi
+          desa.id, website ini hadir untuk menonjolkan jiwa Desa Cijeruk:
+          gemericik curug alami, aroma seduhan kopi lereng Salak, keramahan
+          warga lokal, serta sejarah yang mengalir di setiap sudut kampung.
         </p>
         <div className="pt-2">
           <Link
@@ -182,11 +215,13 @@ export default async function HomePage() {
                 Wisata & Rekreasi
               </h3>
               <p className="text-xs text-stone-500 leading-relaxed">
-                Curug alami, trekking kebun nanas & kopi, spot foto sunrise dan perkemahan.
+                Curug alami, trekking kebun nanas & kopi, spot foto sunrise dan
+                perkemahan.
               </p>
             </div>
             <span className="text-xs font-bold text-[#2d5026] flex items-center gap-1 pt-2">
-              Jelajahi 4 Kategori <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              Jelajahi lebih lanjut{" "}
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
 
@@ -202,11 +237,13 @@ export default async function HomePage() {
                 Kuliner & Kafe
               </h3>
               <p className="text-xs text-stone-500 leading-relaxed">
-                Nasi liwet Sunda kastrol, olahan nanas segar, dan kedai kopi panorama.
+                Beragam tempat untuk hunting kuliner, menghabiskan hidangan
+                bersama keluarga secars gembira dn suka ria.
               </p>
             </div>
             <span className="text-xs font-bold text-amber-700 flex items-center gap-1 pt-2">
-              Buka Sekarang & Rekomendasi <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              Buka Sekarang & Rekomendasi{" "}
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
 
@@ -219,14 +256,16 @@ export default async function HomePage() {
             </div>
             <div className="space-y-1">
               <h3 className="font-serif-title font-bold text-lg text-stone-900 group-hover:text-blue-700 transition-colors">
-                Akomodasi & Stay
+                Rekomendasi Penginapan
               </h3>
               <p className="text-xs text-stone-500 leading-relaxed">
-                Villa private pool keluarga dan glamping dome berhawa sejuk lereng Salak.
+                Villa private pool keluarga dan glamping dome berhawa sejuk
+                lereng Salak.
               </p>
             </div>
             <span className="text-xs font-bold text-blue-700 flex items-center gap-1 pt-2">
-              Villa & Camping Ground <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              Villa & Camping Ground{" "}
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
 
@@ -242,11 +281,13 @@ export default async function HomePage() {
                 Sejarah & Tokoh
               </h3>
               <p className="text-xs text-stone-500 leading-relaxed">
-                Asal usul nama desa, jejak situs warisan, dan keteladanan tokoh sesepuh.
+                Asal usul nama desa, jejak situs warisan, dan keteladanan tokoh
+                sesepuh.
               </p>
             </div>
             <span className="text-xs font-bold text-stone-800 flex items-center gap-1 pt-2">
-              Cerita & Warisan <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              Cerita & Warisan{" "}
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </span>
           </Link>
         </div>
@@ -276,62 +317,72 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {featuredWisata.map((item) => (
-            <Link
-              key={item.id}
-              href={`/wisata/${item.slug}`}
-              className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
-                <Image
-                  src={item.coverImage}
-                  alt={item.judul}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+          {featuredWisata.length > 0 ? (
+            featuredWisata.map((item) => (
+              <Link
+                key={item.id}
+                href={`/wisata/${item.slug}`}
+                className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
+                  <Image
+                    src={item.coverImage}
+                    alt={item.judul}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
-                <div className="absolute top-3.5 left-3.5">
-                  <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#2d5026] text-[11px] font-bold uppercase tracking-wider shadow-sm">
-                    {item.subKategoriLabel}
-                  </span>
-                </div>
-
-                <div className="absolute top-3.5 right-3.5 flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-xs font-bold">
-                  <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
-                  <span>{item.rating}</span>
-                </div>
-
-                <div className="absolute bottom-3 left-3.5 right-3.5 text-white">
-                  <p className="text-xs text-white/90 line-clamp-1 font-medium italic">
-                    &ldquo;{item.tagline}&rdquo;
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <h3 className="text-xl font-serif-title font-bold text-stone-900 group-hover:text-[#2d5026] transition-colors line-clamp-1">
-                    {item.judul}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
-                    {item.deskripsi}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                  <div className="flex items-center gap-1 truncate max-w-[180px]">
-                    <MapPin className="w-3.5 h-3.5 text-[#2d5026] shrink-0" />
-                    <span className="truncate">{item.lokasi.namaTempat}</span>
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#2d5026] text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                      {item.subKategoriLabel}
+                    </span>
                   </div>
-                  <span className="font-semibold text-[#2d5026] flex items-center gap-1 shrink-0">
-                    Detail
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
+
+                  <div className="absolute top-3.5 right-3.5 flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-xs font-bold">
+                    <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
+                    <span>{item.rating}</span>
+                  </div>
+
+                  <div className="absolute bottom-3 left-3.5 right-3.5 text-white">
+                    <p className="text-xs text-white/90 line-clamp-1 font-medium italic">
+                      &ldquo;{item.tagline}&rdquo;
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+
+                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-serif-title font-bold text-stone-900 group-hover:text-[#2d5026] transition-colors line-clamp-1">
+                      {item.judul}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                      {item.deskripsi}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+                    <div className="flex items-center gap-1 truncate max-w-[180px]">
+                      <MapPin className="w-3.5 h-3.5 text-[#2d5026] shrink-0" />
+                      <span className="truncate">{item.lokasi.namaTempat}</span>
+                    </div>
+                    <span className="font-semibold text-[#2d5026] flex items-center gap-1 shrink-0">
+                      Detail
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className="md:col-span-3">
+              <EmptyStateSection
+                title="Belum Ada Wisata Destinasi"
+                description="Mulai tambahkan destinasi wisata unggulan Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+                icon={Mountain}
+              />
+            </div>
+          )}
         </div>
       </section>
 
@@ -360,85 +411,101 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {featuredKuliner.map((item) => {
-              const isOpen = isPlaceOpenNow(item.jamBuka, item.jamTutup);
+            {featuredKuliner.length > 0 ? (
+              featuredKuliner.map((item) => {
+                const isOpen = isPlaceOpenNow(item.jamBuka, item.jamTutup);
 
-              return (
-                <Link
-                  key={item.id}
-                  href={`/kuliner/${item.slug}`}
-                  className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
-                    <Image
-                      src={item.coverImage}
-                      alt={item.judul}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-70 group-hover:opacity-85 transition-opacity" />
+                return (
+                  <Link
+                    key={item.id}
+                    href={`/kuliner/${item.slug}`}
+                    className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
+                      <Image
+                        src={item.coverImage}
+                        alt={item.judul}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-70 group-hover:opacity-85 transition-opacity" />
 
-                    {/* LIVE Status Badge */}
-                    <div className="absolute top-3.5 left-3.5">
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-sm ${
-                          isOpen ? "bg-emerald-600 text-white" : "bg-rose-600 text-white"
-                        }`}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        <span>{isOpen ? "Buka Sekarang" : "Sedang Tutup"}</span>
-                      </span>
-                    </div>
-
-                    {/* Price Range */}
-                    <div className="absolute top-3.5 right-3.5">
-                      <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-medium">
-                        {item.hargaKisaran}
-                      </span>
-                    </div>
-
-                    {/* Operating hours text on image bottom */}
-                    <div className="absolute bottom-3 left-3.5 right-3.5 text-white flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1 text-white/90">
-                        <Clock className="w-3.5 h-3.5 text-amber-300" />
-                        <span>
-                          {item.jamBuka} - {item.jamTutup} WIB
+                      {/* LIVE Status Badge */}
+                      <div className="absolute top-3.5 left-3.5">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-sm ${
+                            isOpen
+                              ? "bg-emerald-600 text-white"
+                              : "bg-rose-600 text-white"
+                          }`}
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                          <span>
+                            {isOpen ? "Buka Sekarang" : "Sedang Tutup"}
+                          </span>
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 text-amber-300 font-bold">
-                        <Star className="w-3.5 h-3.5 fill-amber-300" />
-                        <span>{item.rating}</span>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between space-y-4">
-                    <div className="space-y-1.5">
-                      <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">
-                        {item.subKategoriLabel}
+                      {/* Price Range */}
+                      <div className="absolute top-3.5 right-3.5">
+                        <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-medium">
+                          {item.hargaKisaran}
+                        </span>
                       </div>
-                      <h3 className="text-xl font-serif-title font-bold text-stone-900 group-hover:text-amber-800 transition-colors line-clamp-1">
-                        {item.judul}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
-                        {item.deskripsi}
-                      </p>
+
+                      {/* Operating hours text on image bottom */}
+                      <div className="absolute bottom-3 left-3.5 right-3.5 text-white flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-1 text-white/90">
+                          <Clock className="w-3.5 h-3.5 text-amber-300" />
+                          <span>
+                            {item.jamBuka} - {item.jamTutup} WIB
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-amber-300 font-bold">
+                          <Star className="w-3.5 h-3.5 fill-amber-300" />
+                          <span>{item.rating}</span>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                      <div className="flex items-center gap-1 truncate max-w-[180px]">
-                        <MapPin className="w-3.5 h-3.5 text-amber-700 shrink-0" />
-                        <span className="truncate">{item.lokasi.namaTempat}</span>
+                    <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                      <div className="space-y-1.5">
+                        <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">
+                          {item.subKategoriLabel}
+                        </div>
+                        <h3 className="text-xl font-serif-title font-bold text-stone-900 group-hover:text-amber-800 transition-colors line-clamp-1">
+                          {item.judul}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                          {item.deskripsi}
+                        </p>
                       </div>
-                      <span className="font-semibold text-amber-800 flex items-center gap-1 shrink-0">
-                        Menu & Lokasi
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </span>
+
+                      <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+                        <div className="flex items-center gap-1 truncate max-w-[180px]">
+                          <MapPin className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                          <span className="truncate">
+                            {item.lokasi.namaTempat}
+                          </span>
+                        </div>
+                        <span className="font-semibold text-amber-800 flex items-center gap-1 shrink-0">
+                          Menu & Lokasi
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
+                  </Link>
+                );
+              })
+            ) : (
+              <div className="md:col-span-3">
+                <EmptyStateSection
+                  title="Belum Ada Kuliner & Kafe"
+                  description="Tambahkan tempat makan, kafe, dan warung favorit Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+                  icon={UtensilsCrossed}
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -467,75 +534,87 @@ export default async function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {featuredAkomodasi.map((item) => (
-            <div
-              key={item.id}
-              className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
-                <Image
-                  src={item.coverImage}
-                  alt={item.judul}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+          {featuredAkomodasi.length > 0 ? (
+            featuredAkomodasi.map((item) => (
+              <div
+                key={item.id}
+                className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
+                  <Image
+                    src={item.coverImage}
+                    alt={item.judul}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
-                <div className="absolute top-3.5 left-3.5">
-                  <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-blue-900 text-[11px] font-bold uppercase tracking-wider shadow-sm">
-                    {item.subKategoriLabel}
-                  </span>
-                </div>
-
-                <div className="absolute top-3.5 right-3.5 flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-xs font-bold">
-                  <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
-                  <span>{item.rating}</span>
-                </div>
-
-                <div className="absolute bottom-3 left-3.5 right-3.5 text-white flex items-center justify-between text-xs">
-                  <span className="inline-flex items-center gap-1.5 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md">
-                    <Users className="w-3.5 h-3.5 text-blue-300" />
-                    <span>{item.kapasitas}</span>
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <div className="text-xs font-bold text-[#2d5026]">{item.hargaPerMalam}</div>
-                  <Link href={`/akomodasi/${item.slug}`}>
-                    <h3 className="text-xl font-serif-title font-bold text-stone-900 group-hover:text-[#2d5026] transition-colors line-clamp-1">
-                      {item.judul}
-                    </h3>
-                  </Link>
-                  <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
-                    {item.deskripsi}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-stone-100 flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-xs text-stone-500 truncate max-w-[170px]">
-                    <MapPin className="w-3.5 h-3.5 text-[#2d5026] shrink-0" />
-                    <span className="truncate">{item.lokasi.namaTempat}</span>
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-blue-900 text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                      {item.subKategoriLabel}
+                    </span>
                   </div>
-                  <Link
-                    href={`/akomodasi/${item.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#2d5026] hover:underline"
-                  >
-                    <span>Detail Stay</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+
+                  <div className="absolute top-3.5 right-3.5 flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-xs font-bold">
+                    <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
+                    <span>{item.rating}</span>
+                  </div>
+
+                  <div className="absolute bottom-3 left-3.5 right-3.5 text-white flex items-center justify-between text-xs">
+                    <span className="inline-flex items-center gap-1.5 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-md">
+                      <Users className="w-3.5 h-3.5 text-blue-300" />
+                      <span>{item.kapasitas}</span>
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold text-[#2d5026]">
+                      {item.hargaPerMalam}
+                    </div>
+                    <Link href={`/akomodasi/${item.slug}`}>
+                      <h3 className="text-xl font-serif-title font-bold text-stone-900 group-hover:text-[#2d5026] transition-colors line-clamp-1">
+                        {item.judul}
+                      </h3>
+                    </Link>
+                    <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
+                      {item.deskripsi}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-stone-100 flex items-center justify-between">
+                    <div className="flex items-center gap-1 text-xs text-stone-500 truncate max-w-[170px]">
+                      <MapPin className="w-3.5 h-3.5 text-[#2d5026] shrink-0" />
+                      <span className="truncate">{item.lokasi.namaTempat}</span>
+                    </div>
+                    <Link
+                      href={`/akomodasi/${item.slug}`}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#2d5026] hover:underline"
+                    >
+                      <span>Detail Stay</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="md:col-span-3">
+              <EmptyStateSection
+                title="Belum Ada Penginapan & Camping"
+                description="Tambahkan villa, resort, glamping, dan camping ground Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+                icon={Bed}
+              />
             </div>
-          ))}
+          )}
         </div>
       </section>
 
       {/* ========================================================================= */}
       {/* 7. HIGHLIGHT SEJARAH & TOKOH (Dinamis CMS)                                 */}
       {/* ========================================================================= */}
-      {(featuredSejarah.length > 0 || featuredTokoh.length > 0) && (
+      {featuredSejarah.length > 0 || featuredTokoh.length > 0 ? (
         <section className="bg-stone-100/70 py-16 border-t border-stone-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200 pb-4">
@@ -585,7 +664,9 @@ export default async function HomePage() {
                       {featuredSejarah[0].deskripsi}
                     </p>
                     <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
-                      <span className="text-stone-500">{featuredSejarah[0].lokasi.namaTempat}</span>
+                      <span className="text-stone-500">
+                        {featuredSejarah[0].lokasi.namaTempat}
+                      </span>
                       <Link
                         href={`/sejarah/${featuredSejarah[0].slug}`}
                         className="font-bold text-[#2d5026] hover:underline flex items-center gap-1"
@@ -633,6 +714,60 @@ export default async function HomePage() {
                   </div>
                 </div>
               )}
+
+              {/* Empty state when one is missing */}
+              {(!featuredSejarah[0] || !featuredTokoh[0]) && (
+                <div className="lg:col-span-1 flex items-center justify-center">
+                  <EmptyStateSection
+                    title={
+                      !featuredSejarah[0]
+                        ? "Belum Ada Tempat Bersejarah"
+                        : "Belum Ada Tokoh Berpengaruh"
+                    }
+                    description={
+                      !featuredSejarah[0]
+                        ? "Tambahkan tempat bersejarah & situs warisan Cijeruk melalui admin panel."
+                        : "Tambahkan tokoh berpengaruh & sesepuh Cijeruk melalui admin panel."
+                    }
+                    icon={Landmark}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="bg-stone-100/70 py-16 border-t border-stone-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-stone-700 flex items-center gap-1.5">
+                  <Landmark className="w-3.5 h-3.5 text-[#2d5026]" />
+                  Warisan Sejarah & Budaya
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-serif-title font-bold text-stone-900 mt-1">
+                  Kisah Masa Lalu & Jejak Para Tokoh
+                </h2>
+              </div>
+              <Link
+                href="/sejarah-tokoh"
+                className="text-xs sm:text-sm font-bold text-[#2d5026] hover:underline flex items-center gap-1 shrink-0"
+              >
+                <span>Lihat Sejarah & Tokoh Lengkap</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <EmptyStateSection
+                title="Belum Ada Tempat Bersejarah"
+                description="Tambahkan tempat bersejarah & situs warisan Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+                icon={Landmark}
+              />
+              <EmptyStateSection
+                title="Belum Ada Tokoh Berpengaruh"
+                description="Tambahkan tokoh berpengaruh & sesepuh Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+                icon={Landmark}
+              />
             </div>
           </div>
         </section>
@@ -641,7 +776,7 @@ export default async function HomePage() {
       {/* ========================================================================= */}
       {/* 8. HIGHLIGHT BLOG & KABAR TERBARU (Dinamis CMS: featured = true)           */}
       {/* ========================================================================= */}
-      {featuredBlog.length > 0 && (
+      {featuredBlog.length > 0 ? (
         <section className="max-w-7xl mx-auto px-4 sm:px-8 py-16 space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200 pb-4">
             <div>
@@ -700,7 +835,9 @@ export default async function HomePage() {
                   </div>
 
                   <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-                    <span className="font-medium text-stone-700">{post.penulis}</span>
+                    <span className="font-medium text-stone-700">
+                      {post.penulis}
+                    </span>
                     <span className="font-bold text-[#2d5026] flex items-center gap-1">
                       Baca
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -711,12 +848,41 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
+      ) : (
+        <section className="max-w-7xl mx-auto px-4 sm:px-8 py-16 space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200 pb-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#2d5026]">
+                Jurnal & Kabar KKN
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-serif-title font-bold text-stone-900 mt-1">
+                Catatan Perjalanan & Informasi Terkini
+              </h2>
+            </div>
+            <Link
+              href="/blog"
+              className="text-xs sm:text-sm font-bold text-[#2d5026] hover:underline flex items-center gap-1 shrink-0"
+            >
+              <span>Semua Artikel Blog</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="md:col-span-3">
+              <EmptyStateSection
+                title="Belum Ada Artikel Blog"
+                description="Tambahkan cerita, feature, tips wisata, dan pengumuman KKN melalui admin panel. Artikel akan muncul di sini setelah dipublish."
+                icon={Calendar}
+              />
+            </div>
+          </div>
+        </section>
       )}
 
       {/* ========================================================================= */}
       {/* 9. DESTINASI TERDEKAT PREVIEW (Sekitar Cijeruk)                            */}
       {/* ========================================================================= */}
-      {featuredTerdekat.length > 0 && (
+      {featuredTerdekat.length > 0 ? (
         <section className="bg-teal-900 text-white py-16 px-4 sm:px-8">
           <div className="max-w-7xl mx-auto space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-teal-800 pb-4">
@@ -783,6 +949,38 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+      ) : (
+        <section className="bg-teal-900 text-white py-16 px-4 sm:px-8">
+          <div className="max-w-7xl mx-auto space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-teal-800 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-teal-300 flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5" />
+                  Rencana Day-Trip
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-serif-title font-bold text-white mt-1">
+                  Destinasi Menarik di Sekitar Cijeruk
+                </h2>
+              </div>
+              <Link
+                href="/terdekat"
+                className="text-xs sm:text-sm font-bold text-teal-300 hover:text-white flex items-center gap-1 shrink-0"
+              >
+                <span>Lihat Tempat Terdekat Lainnya</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-3">
+                <EmptyStateSection
+                  title="Belum Ada Destinasi Terdekat"
+                  description="Tambahkan tempat menarik di sekitar Cijeruk (Cigombong, Caringin, Lido, Tamansari) melalui admin panel. Data akan muncul di sini setelah dipublish."
+                  icon={Compass}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
       )}
 
       {/* ========================================================================= */}
@@ -799,7 +997,10 @@ export default async function HomePage() {
               Akses Data Resmi Pemerintahan Desa Cijeruk
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 max-w-2xl leading-relaxed">
-              Website ini berfokus pada informasi pariwisata, kuliner, dan kearifan lokal. Untuk informasi administrasi formal, jumlah penduduk detail, transparansi APBDes, dan portal resmi daerah, silakan kunjungi portal resmi terkait:
+              Website ini berfokus pada informasi pariwisata, kuliner, dan
+              kearifan lokal. Untuk informasi administrasi formal, jumlah
+              penduduk detail, transparansi APBDes, dan portal resmi daerah,
+              silakan kunjungi portal resmi terkait:
             </p>
           </div>
 

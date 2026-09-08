@@ -2,231 +2,284 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getAkomodasiBySlug, getRekomendasiTempat } from "@/lib/dataService";
+import type { AkomodasiItem } from "@/lib/types";
 import {
-  ArrowLeft,
   MapPin,
-  Users,
-  Bed,
-  Star,
-  CheckCircle2,
-  MessageCircle,
   Phone,
-  ArrowRight,
+  Clock,
+  Users,
+  Wifi,
+  Car,
+  Menu,
+  Star,
 } from "lucide-react";
+import { decodeURIComponentSafe } from "@/lib/utils";
 
 interface AkomodasiDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default async function AkomodasiDetailPage({ params }: AkomodasiDetailPageProps) {
+export default async function AkomodasiDetailPage({
+  params,
+}: AkomodasiDetailPageProps) {
   const { slug } = await params;
-  const akomodasi = await getAkomodasiBySlug(slug);
+  const decodedSlug = decodeURIComponentSafe(slug);
+
+  let akomodasi: AkomodasiItem | null = null;
+  try {
+    akomodasi = await getAkomodasiBySlug(decodedSlug);
+  } catch {
+    akomodasi = null;
+  }
 
   if (!akomodasi) {
     notFound();
   }
 
-  const recommendations = await getRekomendasiTempat("akomodasi", akomodasi.slug, 3);
+  const rekomendasi = await getRekomendasiTempat("akomodasi", akomodasi.slug);
 
   return (
-    <main className="min-h-screen bg-[#fafaf8] text-stone-900 pt-28 sm:pt-36 pb-24 font-sans">
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 space-y-10">
-        {/* Back Link */}
-        <div>
-          <Link
-            href="/akomodasi"
-            className="inline-flex items-center gap-2 text-xs font-bold text-stone-500 hover:text-[#2d5026] transition py-1"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Kembali ke Semua Akomodasi & Penginapan</span>
-          </Link>
-        </div>
-
-        {/* Hero Header */}
-        <div className="relative aspect-[21/9] sm:aspect-[2.4/1] w-full rounded-3xl overflow-hidden shadow-xl bg-stone-100">
+    <article className="min-h-screen bg-[#fafaf8] text-[#292524]">
+      {/* Hero Section */}
+      <section className="relative h-[50vh] min-h-[300px] w-full">
+        {akomodasi.coverImage ? (
           <Image
             src={akomodasi.coverImage}
             alt={akomodasi.judul}
             fill
-            priority
             className="object-cover"
+            priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
-
-          {/* Badges Over Image */}
-          <div className="absolute top-5 left-5 flex flex-wrap items-center gap-2">
-            <span className="px-3.5 py-1 rounded-full bg-blue-600 text-white text-xs font-bold uppercase tracking-wider shadow-sm">
-              {akomodasi.subKategoriLabel}
-            </span>
-            <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-xs font-bold">
-              <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
-              <span>{akomodasi.rating} / 5.0</span>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-br from-[#2e5b32]/30 to-[#4a8041]/40" />
+        )}
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative h-full flex items-end pb-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+            <div className="bg-[#fafaf8]/95 backdrop-blur-sm rounded-t-2xl pt-8 pb-6 px-6 sm:px-8">
+              <p className="text-sm font-serif-title tracking-wider text-[#2e5b32] uppercase">
+                Akomodasi • {akomodasi.subKategoriLabel}
+              </p>
+              <h1 className="font-display text-4xl sm:text-5xl font-bold text-[#141414] mt-2">
+                {akomodasi.judul}
+              </h1>
+              {akomodasi.rating && (
+                <div className="flex items-center gap-2 mt-3">
+                  <Star className="w-5 h-5 text-amber-400 fill-current" />
+                  <span className="font-medium">{akomodasi.rating}</span>
+                </div>
+              )}
             </div>
-          </div>
-
-          {/* Title Over Image */}
-          <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 text-white space-y-2">
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif-title font-bold tracking-tight">
-              {akomodasi.judul}
-            </h1>
-            <p className="text-sm sm:text-base text-white/90 italic max-w-2xl">
-              &ldquo;{akomodasi.tagline}&rdquo;
-            </p>
           </div>
         </div>
+      </section>
 
-        {/* Two-Column Detail Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Overview */}
-            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 space-y-4 shadow-xs">
-              <h2 className="text-xl font-serif-title font-bold text-stone-900 border-b border-stone-100 pb-3">
-                Tentang Penginapan
+          <div className="lg:col-span-2 space-y-10">
+            <section>
+              <h2 className="font-display text-2xl font-bold text-[#141414] mb-4">
+                Tentang Penginapan Ini
               </h2>
-              <p className="text-stone-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">
+              <p className="text-stone-600 leading-relaxed text-lg">
                 {akomodasi.deskripsi}
               </p>
-            </div>
+            </section>
 
-            {/* Fasilitas Kamar & Properti */}
-            {akomodasi.fasilitas.length > 0 && (
-              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 space-y-4 shadow-xs">
-                <h2 className="text-xl font-serif-title font-bold text-stone-900 border-b border-stone-100 pb-3">
-                  Fasilitas & Kelengkapan
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                  {akomodasi.fasilitas.map((f, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-stone-50 border border-stone-100 text-xs sm:text-sm text-stone-700 font-medium"
+            {akomodasi.tagline && (
+              <section className="bg-[#2e5b32]/5 rounded-xl p-6">
+                <h3 className="font-display text-xl font-bold text-[#2e5b32] mb-2">
+                  Highlights
+                </h3>
+                <p className="italic text-stone-700">
+                  {akomodasi.tagline}
+                </p>
+              </section>
+            )}
+
+            {akomodasi.fasilitas && akomodasi.fasilitas.length > 0 && (
+              <section>
+                <h3 className="font-display text-2xl font-bold text-[#141414] mb-4">
+                  Fasilitas
+                </h3>
+                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {akomodasi.fasilitas.map((f, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2 text-stone-700"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-[#2d5026] shrink-0" />
-                      <span>{f}</span>
+                      <Menu className="w-4 h-4 text-[#2e5b32]" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {akomodasi.gallery && akomodasi.gallery.length > 0 && (
+              <section>
+                <h3 className="font-display text-2xl font-bold text-[#141414] mb-4">
+                  Galeri Foto
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {akomodasi.gallery.map((img, i) => (
+                    <div
+                      key={i}
+                      className="relative aspect-video rounded-lg overflow-hidden"
+                    >
+                      <Image
+                        src={img}
+                        alt={`${akomodasi.judul} - ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                   ))}
                 </div>
-              </div>
+              </section>
             )}
           </div>
 
-          {/* Sticky Sidebar: Booking Card */}
-          <div className="space-y-6">
-            <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-5 sticky top-36">
-              <div className="border-b border-stone-100 pb-4">
-                <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
-                  Harga Sewa
-                </span>
-                <span className="text-lg sm:text-xl font-bold text-[#2d5026] mt-1 block">
-                  {akomodasi.hargaPerMalam}
-                </span>
-              </div>
+          {/* Sidebar */}
+          <aside className="space-y-8">
+            <div className="bg-white rounded-xl shadow-sm p-6 space-y-5">
+              <h3 className="font-display text-xl font-bold text-[#141414]">
+                Informasi Praktis
+              </h3>
 
-              <div className="space-y-4 text-xs sm:text-sm">
-                <div className="flex items-start gap-3">
-                  <Users className="w-4 h-4 text-[#2d5026] shrink-0 mt-0.5" />
-                  <div>
-                    <span className="block text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-                      Kapasitas Tamu
-                    </span>
-                    <span className="font-semibold text-stone-800">{akomodasi.kapasitas}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-[#2d5026] shrink-0 mt-0.5" />
-                  <div>
-                    <span className="block text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-                      Lokasi & Alamat
-                    </span>
-                    <span className="font-bold text-stone-900 block">
-                      {akomodasi.lokasi.namaTempat}
-                    </span>
-                    <span className="text-stone-600 block mt-0.5">{akomodasi.lokasi.alamat}</span>
-                    {akomodasi.lokasi.latitude && (
-                      <span className="text-[10px] text-stone-400 font-mono mt-1 block">
-                        Koordinat: {akomodasi.lokasi.latitude}, {akomodasi.lokasi.longitude}
-                      </span>
-                    )}
-                  </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#2e5b32] mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-medium text-stone-800">Lokasi</span>
+                  <p className="text-stone-600">
+                    {akomodasi.lokasi.namaTempat}
+                  </p>
+                  <p className="text-sm text-stone-500">
+                    {akomodasi.lokasi.alamat}
+                  </p>
                 </div>
               </div>
 
-              {/* Direct Booking Actions */}
-              <div className="pt-3 border-t border-stone-100 space-y-2.5">
-                {akomodasi.kontakBooking.whatsapp && (
-                  <a
-                    href={`https://wa.me/${akomodasi.kontakBooking.whatsapp}?text=${encodeURIComponent(
-                      `Halo pengelola ${akomodasi.judul} Cijeruk, saya ingin reservasi tanggal...`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold tracking-wide transition shadow-sm"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Pesan via WhatsApp</span>
-                  </a>
-                )}
-                {akomodasi.kontakBooking.telepon && (
-                  <a
-                    href={`tel:${akomodasi.kontakBooking.telepon}`}
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition"
-                  >
-                    <Phone className="w-4 h-4" />
-                    <span>Hubungi Pengelola</span>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+              {akomodasi.hargaPerMalam && (
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-[#2e5b32] mt-0.5 shrink-0" />
+                  <div>
+                    <span className="font-medium text-stone-800">
+                      Harga per Malam
+                    </span>
+                    <p className="text-stone-600">
+                      {akomodasi.hargaPerMalam}
+                    </p>
+                  </div>
+                </div>
+              )}
 
-        {/* Rekomendasi Akomodasi Lainnya */}
-        {recommendations.length > 0 && (
-          <section className="pt-12 border-t border-stone-200 space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-2xl font-serif-title font-bold text-stone-900">
-                  Rekomendasi Penginapan Lainnya
-                </h3>
-                <p className="text-xs text-stone-500 mt-1">
-                  Pilihan villa dan camping ground lain di lereng Gunung Salak Cijeruk
-                </p>
-              </div>
-              <Link
-                href="/akomodasi"
-                className="text-xs font-bold text-[#2d5026] hover:underline flex items-center gap-1"
-              >
-                <span>Lihat Semua</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+              {akomodasi.kapasitas && (
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-[#2e5b32] mt-0.5 shrink-0" />
+                  <div>
+                    <span className="font-medium text-stone-800">Kapasitas</span>
+                    <p className="text-stone-600">{akomodasi.kapasitas}</p>
+                  </div>
+                </div>
+              )}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {recommendations.map((rec) => (
-                <Link
-                  key={rec.id}
-                  href={rec.href}
-                  className="group bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-stone-300 shadow-sm hover:shadow-lg transition-all"
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
-                    <Image
-                      src={rec.coverImage}
-                      alt={rec.judul}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-0.5 rounded-full bg-white/95 text-blue-800 text-[10px] font-bold uppercase tracking-wider">
-                        {rec.subLabel}
+              {akomodasi.kontakBooking &&
+                (akomodasi.kontakBooking.whatsapp ||
+                  akomodasi.kontakBooking.telepon ||
+                  akomodasi.kontakBooking.bookingUrl) && (
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-[#2e5b32] mt-0.5 shrink-0" />
+                    <div>
+                      <span className="font-medium text-stone-800">
+                        Kontak Booking
                       </span>
+                      {akomodasi.kontakBooking.whatsapp && (
+                        <p className="text-stone-600">
+                          WhatsApp: {akomodasi.kontakBooking.whatsapp}
+                        </p>
+                      )}
+                      {akomodasi.kontakBooking.telepon && (
+                        <p className="text-stone-600">
+                          Telp: {akomodasi.kontakBooking.telepon}
+                        </p>
+                      )}
+                      {akomodasi.kontakBooking.bookingUrl && (
+                        <p className="text-stone-600">
+                          Booking:{" "}
+                          <a
+                            href={akomodasi.kontakBooking.bookingUrl}
+                            className="underline text-[#2e5b32]"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Klik di sini
+                          </a>
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="p-4 space-y-1.5">
-                    <h4 className="font-serif-title font-bold text-stone-900 group-hover:text-[#2d5026] transition-colors truncate">
-                      {rec.judul}
+                )}
+
+              {akomodasi.fasilitas &&
+                akomodasi.fasilitas.length > 0 && (
+                  <div className="flex items-start gap-3">
+                    <Wifi className="w-5 h-5 text-[#2e5b32] mt-0.5 shrink-0" />
+                    <div>
+                      <span className="font-medium text-stone-800">
+                        Fasilitas Unggulan
+                      </span>
+                      <p className="text-stone-600">
+                        {akomodasi.fasilitas.join(", ")}
+                      </p>
+                    </div>
+                  </div>
+                )}
+            </div>
+
+            {/* Back to List */}
+            <Link
+              href="/akomodasi"
+              className="flex items-center justify-center gap-2 text-[#2e5b32] hover:text-[#4a8041] font-medium transition"
+            >
+              <Car className="w-4 h-4" />
+              Kembali ke Semua Akomodasi
+            </Link>
+          </aside>
+        </div>
+
+        {/* Rekomendasi */}
+        {rekomendasi && rekomendasi.length > 0 && (
+          <section className="mt-16 pt-12 border-t border-stone-200">
+            <h3 className="font-display text-2xl font-bold text-[#141414] mb-6">
+              Penginapan Lain yang Disukai
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {rekomendasi.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  className="group block bg-white rounded-xl shadow-sm overflow-hidden transition-shadow hover:shadow-md"
+                >
+                  <div className="aspect-video relative">
+                    <Image
+                      src={item.coverImage}
+                      alt={item.judul}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform"
+                    />
+                  </div>
+                  <div className="p-4 space-y-1">
+                    <span className="text-xs font-medium text-[#2e5b32]">
+                      {item.subLabel}
+                    </span>
+                    <h4 className="font-display text-lg font-bold group-hover:text-[#2e5b32] transition">
+                      {item.judul}
                     </h4>
-                    <p className="text-xs text-stone-500">{rec.extraInfo}</p>
+                    <p className="text-stone-600 text-sm">
+                      {item.extraInfo}
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -234,6 +287,6 @@ export default async function AkomodasiDetailPage({ params }: AkomodasiDetailPag
           </section>
         )}
       </div>
-    </main>
+    </article>
   );
 }

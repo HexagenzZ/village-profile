@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getSejarahBySlug, getRekomendasiTempat } from "@/lib/dataService";
+import { decodeURIComponentSafe } from "@/lib/utils";
 import {
   ArrowLeft,
   MapPin,
@@ -17,7 +18,7 @@ interface SejarahDetailPageProps {
 
 export default async function SejarahDetailPage({ params }: SejarahDetailPageProps) {
   const { slug } = await params;
-  const sejarah = await getSejarahBySlug(slug);
+  const sejarah = await getSejarahBySlug(decodeURIComponentSafe(slug));
 
   if (!sejarah) {
     notFound();

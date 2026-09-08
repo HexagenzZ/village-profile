@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getBlogBySlug, getBlogList } from "@/lib/dataService";
+import { decodeURIComponentSafe } from "@/lib/utils";
 import {
   ArrowLeft,
   Clock,
@@ -18,7 +19,7 @@ interface BlogDetailPageProps {
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
-  const post = await getBlogBySlug(slug);
+  const post = await getBlogBySlug(decodeURIComponentSafe(slug));
 
   if (!post) {
     notFound();

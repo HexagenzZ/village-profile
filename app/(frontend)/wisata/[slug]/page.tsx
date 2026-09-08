@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getWisataBySlug, getRekomendasiTempat } from "@/lib/dataService";
+import { decodeURIComponentSafe } from "@/lib/utils";
 import {
   ArrowLeft,
   MapPin,
@@ -19,7 +20,7 @@ interface WisataDetailPageProps {
 
 export default async function WisataDetailPage({ params }: WisataDetailPageProps) {
   const { slug } = await params;
-  const wisata = await getWisataBySlug(slug);
+  const wisata = await getWisataBySlug(decodeURIComponentSafe(slug));
 
   if (!wisata) {
     notFound();

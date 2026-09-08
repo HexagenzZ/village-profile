@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getTerdekatBySlug, getRekomendasiTempat } from "@/lib/dataService";
+import { decodeURIComponentSafe } from "@/lib/utils";
 import {
   ArrowLeft,
   MapPin,
@@ -18,7 +19,7 @@ interface TerdekatDetailPageProps {
 
 export default async function TerdekatDetailPage({ params }: TerdekatDetailPageProps) {
   const { slug } = await params;
-  const item = await getTerdekatBySlug(slug);
+  const item = await getTerdekatBySlug(decodeURIComponentSafe(slug));
 
   if (!item) {
     notFound();

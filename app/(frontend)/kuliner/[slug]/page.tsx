@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getKulinerBySlug, getRekomendasiTempat } from "@/lib/dataService";
+import { decodeURIComponentSafe } from "@/lib/utils";
 import {
   ArrowLeft,
   MapPin,
@@ -19,7 +20,7 @@ interface KulinerDetailPageProps {
 
 export default async function KulinerDetailPage({ params }: KulinerDetailPageProps) {
   const { slug } = await params;
-  const kuliner = await getKulinerBySlug(slug);
+  const kuliner = await getKulinerBySlug(decodeURIComponentSafe(slug));
 
   if (!kuliner) {
     notFound();
