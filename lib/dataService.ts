@@ -19,11 +19,11 @@ const BASE_URL = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
+const FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85';
+
 function getFotoUrl(doc: any): string {
-  if (doc.fotoUrl) return doc.fotoUrl;
-  if (doc.foto && doc.foto.url) return doc.foto.url;
-  if (doc.heroImage && doc.heroImage.url) return doc.heroImage.url;
-  return '';
+  return doc.fotoUrl || doc.foto?.url || doc.heroImage?.url || FALLBACK_IMAGE;
 }
 
 async function fetchCollection(collection: string): Promise<any[]> {
@@ -31,8 +31,13 @@ async function fetchCollection(collection: string): Promise<any[]> {
     const res = await fetch(`${BASE_URL}/api/${collection}?limit=100&depth=1`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      next: { revalidate: 60 }, // ISR 60s di production
+      // CMS data must be read at request time. This prevents Vercel from
+      // prerendering an empty homepage when its own API is unavailable in build.
+      cache: 'no-store',
     });
+    if (!res.ok) {
+      throw new Error(`Payload API ${collection} returned ${res.status}`);
+    }
     const data = await res.json();
     return data.docs || [];
   } catch (err) {
@@ -43,7 +48,12 @@ async function fetchCollection(collection: string): Promise<any[]> {
 
 async function fetchCollectionBySlug(collection: string, slug: string): Promise<any | null> {
   try {
-    const res = await fetch(`${BASE_URL}/api/${collection}?limit=1&where[slug][equals]=${slug}&depth=1`);
+    const res = await fetch(`${BASE_URL}/api/${collection}?limit=1&where[slug][equals]=${encodeURIComponent(slug)}&depth=1`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) {
+      throw new Error(`Payload API ${collection} returned ${res.status}`);
+    }
     const data = await res.json();
     return (data.docs && data.docs[0]) || null;
   } catch (err) {
@@ -154,7 +164,7 @@ export async function getFeaturedWisata(): Promise<WisataItem[]> {
       : [],
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : list.slice(0, 3);
+  return (featured.length > 0 ? featured : list).slice(0, 3);
 }
 
 // === KULINER ===
@@ -233,7 +243,7 @@ export async function getFeaturedKuliner(): Promise<KulinerItem[]> {
     rating: Number(doc.rating) || 4.8,
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : list.slice(0, 3);
+  return (featured.length > 0 ? featured : list).slice(0, 3);
 }
 
 // === AKOMODASI ===
@@ -309,7 +319,7 @@ export async function getFeaturedAkomodasi(): Promise<AkomodasiItem[]> {
     rating: Number(doc.rating) || 4.8,
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : list.slice(0, 3);
+  return (featured.length > 0 ? featured : list).slice(0, 3);
 }
 
 // === SEJARAH ===
@@ -370,7 +380,7 @@ export async function getFeaturedSejarah(): Promise<SejarahItem[]> {
       : [],
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : list.slice(0, 2);
+  return (featured.length > 0 ? featured : list).slice(0, 2);
 }
 
 // === TOKOH ===
@@ -428,7 +438,7 @@ export async function getFeaturedTokoh(): Promise<TokohItem[]> {
       : [],
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : list.slice(0, 2);
+  return (featured.length > 0 ? featured : list).slice(0, 2);
 }
 
 // === TERDEKAT ===
@@ -492,7 +502,7 @@ export async function getFeaturedTerdekat(): Promise<TerdekatItem[]> {
     hargaTiket: doc.hargaTiket || '',
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : list.slice(0, 3);
+  return (featured.length > 0 ? featured : list).slice(0, 3);
 }
 
 // === BLOG ===
@@ -574,7 +584,7 @@ export async function getFeaturedBlog(): Promise<BlogPostItem[]> {
       : [],
   }));
   const featured = list.filter((item) => item.featured);
-  return featured.length > 0 ? featured : [];
+  return (featured.length > 0 ? featured : list).slice(0, 3);
 }
 
 // === PROFIL DESA ===
