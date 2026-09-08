@@ -31,11 +31,9 @@ import {
 // Empty state component for when no CMS data exists
 function EmptyStateSection({
   title,
-  description,
   icon: Icon,
 }: {
   title: string;
-  description: string;
   icon: React.ElementType;
 }) {
   return (
@@ -43,10 +41,9 @@ function EmptyStateSection({
       <div className="w-12 h-12 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center mx-auto mb-4">
         <Icon className="w-6 h-6" />
       </div>
-      <h3 className="text-lg font-serif-title font-bold text-stone-700 mb-2">
+      <h3 className="text-lg font-serif-title font-bold text-stone-700">
         {title}
       </h3>
-      <p className="text-sm text-stone-500 max-w-md mx-auto">{description}</p>
     </div>
   );
 }
@@ -597,7 +594,7 @@ export default async function HomePage() {
             <div className="md:col-span-3">
               <EmptyStateSection
                 title="Belum Ada Penginapan & Camping"
-                description="Tambahkan villa, resort, glamping, dan camping ground Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+               
                 icon={Bed}
               />
             </div>
@@ -718,11 +715,6 @@ export default async function HomePage() {
                         ? "Belum Ada Tempat Bersejarah"
                         : "Belum Ada Tokoh Berpengaruh"
                     }
-                    description={
-                      !featuredSejarah[0]
-                        ? "Tambahkan tempat bersejarah & situs warisan Cijeruk melalui admin panel."
-                        : "Tambahkan tokoh berpengaruh & sesepuh Cijeruk melalui admin panel."
-                    }
                     icon={Landmark}
                   />
                 </div>
@@ -754,12 +746,12 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <EmptyStateSection
                 title="Belum Ada Tempat Bersejarah"
-                description="Tambahkan tempat bersejarah & situs warisan Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+               
                 icon={Landmark}
               />
               <EmptyStateSection
                 title="Belum Ada Tokoh Berpengaruh"
-                description="Tambahkan tokoh berpengaruh & sesepuh Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
+               
                 icon={Landmark}
               />
             </div>
@@ -865,7 +857,7 @@ export default async function HomePage() {
             <div className="md:col-span-3">
               <EmptyStateSection
                 title="Belum Ada Artikel Blog"
-                description="Tambahkan cerita, feature, tips wisata, dan pengumuman KKN melalui admin panel. Artikel akan muncul di sini setelah dipublish."
+               
                 icon={Calendar}
               />
             </div>
@@ -968,7 +960,7 @@ export default async function HomePage() {
               <div className="md:col-span-3">
                 <EmptyStateSection
                   title="Belum Ada Destinasi Terdekat"
-                  description="Tambahkan tempat menarik di sekitar Cijeruk (Cigombong, Caringin, Lido, Tamansari) melalui admin panel. Data akan muncul di sini setelah dipublish."
+                 
                   icon={Compass}
                 />
               </div>
