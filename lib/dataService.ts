@@ -11,9 +11,12 @@ import {
 } from '@/lib/types';
 
 // =========================================================================
-// REST HELPER — fetch langsung ke Payload REST API (reliable di Vercel serverless)
+// REST HELPER — fetch ke Payload REST API (reliable di Vercel serverless)
 // =========================================================================
-const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
+// Di runtime Vercel, VERCEL_URL ter-set otomatis. Di dev, pakai localhost.
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
 function getFotoUrl(doc: any): string {
   if (doc.fotoUrl) return doc.fotoUrl;
