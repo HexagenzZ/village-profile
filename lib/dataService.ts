@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import 'server-only';
+import { connection } from 'next/server';
+import config from '@payload-config';
+import { getPayload, type CollectionSlug } from 'payload';
+
 import {
   WisataItem,
   KulinerItem,
@@ -11,14 +16,9 @@ import {
 } from '@/lib/types';
 
 // =========================================================================
-// REST HELPER — fetch ke Payload REST API.
-// Server Components are also rendered during `next build`; Node's fetch needs
-// an absolute URL there. Vercel provides VERCEL_URL for each deployment.
+// Payload Local API — queries Supabase through the same Payload instance used
+// by the CMS. This avoids a server component calling its own Vercel deployment.
 // =========================================================================
-const BASE_URL = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
-
 const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=85';
 
@@ -28,36 +28,37 @@ function getFotoUrl(doc: any): string {
 
 async function fetchCollection(collection: string): Promise<any[]> {
   try {
-    const res = await fetch(`${BASE_URL}/api/${collection}?limit=100&depth=1`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      // CMS data must be read at request time. This prevents Vercel from
-      // prerendering an empty homepage when its own API is unavailable in build.
-      cache: 'no-store',
+    await connection();
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({
+      collection: collection as CollectionSlug,
+      depth: 1,
+      limit: 100,
     });
-    if (!res.ok) {
-      throw new Error(`Payload API ${collection} returned ${res.status}`);
-    }
-    const data = await res.json();
-    return data.docs || [];
+    return docs;
   } catch (err) {
-    console.error(`Error fetching ${collection}:`, err);
+    console.error(`Error fetching ${collection} from Payload:`, err);
     return [];
   }
 }
 
 async function fetchCollectionBySlug(collection: string, slug: string): Promise<any | null> {
   try {
-    const res = await fetch(`${BASE_URL}/api/${collection}?limit=1&where[slug][equals]=${encodeURIComponent(slug)}&depth=1`, {
-      cache: 'no-store',
+    await connection();
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({
+      collection: collection as CollectionSlug,
+      depth: 1,
+      limit: 1,
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
     });
-    if (!res.ok) {
-      throw new Error(`Payload API ${collection} returned ${res.status}`);
-    }
-    const data = await res.json();
-    return (data.docs && data.docs[0]) || null;
+    return docs[0] || null;
   } catch (err) {
-    console.error(`Error fetching ${collection} by slug:`, err);
+    console.error(`Error fetching ${collection} by slug from Payload:`, err);
     return null;
   }
 }
