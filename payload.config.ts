@@ -15,15 +15,14 @@ import { Terdekat } from './collections/Terdekat'
 import { BlogPost } from './collections/BlogPost'
 import { ProfilDesa } from './collections/ProfilDesa'
 
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
     user: Users.slug,
-    importMap: {
-      baseDir: path.resolve(dirname),
-    },
   },
   collections: [
     Users,
@@ -44,7 +43,16 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || 'postgresql://postgres:postgres@127.0.0.1:5432/cijeruk',
+      connectionString: process.env.DATABASE_URI || 'postgresql://postgres:***@127.0.0.1:5432/cijeruk',
     },
   }),
+  plugins: [
+    vercelBlobStorage({
+      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      collections: { media: true },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      clientUploads: true,
+      disableProcessing: true,
+    }),
+  ],
 })
