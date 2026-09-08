@@ -47,10 +47,6 @@ function EmptyStateSection({
         {title}
       </h3>
       <p className="text-sm text-stone-500 max-w-md mx-auto">{description}</p>
-      <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-200 text-stone-600 text-xs font-medium">
-        <Plus className="w-3.5 h-3.5" />
-        <span>Tambah via Admin Panel</span>
-      </div>
     </div>
   );
 }
@@ -378,7 +374,6 @@ export default async function HomePage() {
             <div className="md:col-span-3">
               <EmptyStateSection
                 title="Belum Ada Wisata Destinasi"
-                description="Mulai tambahkan destinasi wisata unggulan Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
                 icon={Mountain}
               />
             </div>
@@ -501,7 +496,6 @@ export default async function HomePage() {
               <div className="md:col-span-3">
                 <EmptyStateSection
                   title="Belum Ada Kuliner & Kafe"
-                  description="Tambahkan tempat makan, kafe, dan warung favorit Cijeruk melalui admin panel. Data akan muncul di sini setelah dipublish."
                   icon={UtensilsCrossed}
                 />
               </div>

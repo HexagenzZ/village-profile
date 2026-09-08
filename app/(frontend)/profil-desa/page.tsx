@@ -20,7 +20,8 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Profil, Kependudukan & Pemerintahan Desa Cijeruk",
-  description: "Portal resmi profil pemerintahan, data kependudukan, transparansi anggaran APBDes, dan layanan surat warga Desa Cijeruk.",
+  description:
+    "Portal resmi profil pemerintahan, data kependudukan, transparansi anggaran APBDes, dan layanan surat warga Desa Cijeruk.",
 };
 
 export default async function ProfilDesaPage() {
@@ -31,7 +32,11 @@ export default async function ProfilDesaPage() {
     sejarahDesa: "",
     sumberResmi: { portalBestieBogor: "", situsResmiDesaId: "" },
     statistik: null,
-    apbdesRingkasan: { tahunAnggaran: "", totalPendapatan: "", totalBelanja: "" },
+    apbdesRingkasan: {
+      tahunAnggaran: "",
+      totalPendapatan: "",
+      totalBelanja: "",
+    },
     kontakKantor: { alamat: "", telepon: "", email: "", jamLayanan: "" },
   };
 
@@ -60,7 +65,8 @@ export default async function ProfilDesaPage() {
               Profil, Demografi & Pemerintahan {profil.namaDesa}
             </h1>
             <p className="text-base text-stone-300 leading-relaxed font-light">
-              {profil.ringkasanUmum || "Panduan profil resmi dan data kependudukan Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor."}
+              {profil.ringkasanUmum ||
+                "Panduan profil resmi dan data kependudukan Desa Cijeruk, Kecamatan Cijeruk, Kabupaten Bogor."}
             </p>
           </div>
         </div>
@@ -78,7 +84,10 @@ export default async function ProfilDesaPage() {
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href={profil.sumberResmi?.portalBestieBogor || "https://bogorkab.go.id/"}
+                href={
+                  profil.sumberResmi?.portalBestieBogor ||
+                  "https://bogorkab.go.id/"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition"
@@ -87,7 +96,10 @@ export default async function ProfilDesaPage() {
                 <span className="text-[10px]">&#8599;</span>
               </a>
               <a
-                href={profil.sumberResmi?.situsResmiDesaId || "https://cijeruk-bogor.desa.id/"}
+                href={
+                  profil.sumberResmi?.situsResmiDesaId ||
+                  "https://cijeruk-bogor.desa.id/"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2d5026] hover:bg-[#223e1d] text-white text-xs font-semibold transition shadow-xs"
@@ -98,7 +110,10 @@ export default async function ProfilDesaPage() {
             </div>
           </div>
           <p className="text-xs text-stone-500 leading-relaxed">
-            Data administratif formal di bawah ini disarikan sebagai infografis ringkas untuk melengkapi informasi pariwisata, kuliner, dan sejarah Desa Cijeruk. Untuk keperluan administrasi resmi lanjutan, silakan gunakan tautan portal resmi di atas.
+            Data administratif formal di bawah ini disarikan sebagai infografis
+            ringkas untuk melengkapi informasi pariwisata, kuliner, dan sejarah
+            Desa Cijeruk. Untuk keperluan administrasi resmi lanjutan, silakan
+            gunakan tautan portal resmi di atas.
           </p>
         </div>
 
@@ -138,7 +153,9 @@ export default async function ProfilDesaPage() {
               <span className="text-xl sm:text-2xl font-serif-title font-bold text-stone-900">
                 {statistik.ketinggianMeter || 0} mdpl
               </span>
-              <p className="text-xs text-stone-500 mt-0.5">Ketinggian Rata-rata</p>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Ketinggian Rata-rata
+              </p>
             </div>
 
             <div className="p-4 rounded-lg bg-white border border-stone-200 text-center shadow-xs">
@@ -166,35 +183,42 @@ export default async function ProfilDesaPage() {
               Data Statistik Belum Tersedia
             </h3>
             <p className="text-sm text-stone-500 max-w-md mx-auto mb-4">
-              Tambahkan data statistik desa (penduduk, KK, luas wilayah, dll) melalui admin panel Profil Desa.
+              Tambahkan data statistik desa (penduduk, KK, luas wilayah, dll).
             </p>
-            <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-200 text-stone-600 text-xs font-medium">
-              <Plus className="w-3.5 h-3.5" />
-              <span>Tambah via Admin Panel</span>
-            </div>
           </div>
         )}
 
         {/* APBDES Transparency (dari CMS) */}
         {profil.apbdesRingkasan && profil.apbdesRingkasan.tahunAnggaran ? (
-          <section id="apbdes" className="p-8 sm:p-10 rounded-xl bg-white border border-stone-200 space-y-6 shadow-xs scroll-mt-28">
+          <section
+            id="apbdes"
+            className="p-8 sm:p-10 rounded-xl bg-white border border-stone-200 space-y-6 shadow-xs scroll-mt-28"
+          >
             <div className="flex items-center gap-2">
               <Landmark className="w-5 h-5 text-[#2d5026]" />
               <h2 className="text-2xl font-serif-title font-semibold text-stone-900">
-                Transparansi Anggaran Pendapatan & Belanja Desa (APBDes {profil.apbdesRingkasan.tahunAnggaran})
+                Transparansi Anggaran Pendapatan & Belanja Desa (APBDes{" "}
+                {profil.apbdesRingkasan.tahunAnggaran})
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 font-medium uppercase block">Total Pendapatan Desa {profil.apbdesRingkasan.tahunAnggaran}</span>
+                <span className="text-xs text-stone-500 font-medium uppercase block">
+                  Total Pendapatan Desa {profil.apbdesRingkasan.tahunAnggaran}
+                </span>
                 <span className="text-2xl font-serif-title font-bold text-[#2d5026] mt-1 block">
                   {profil.apbdesRingkasan.totalPendapatan || "-"}
                 </span>
-                <span className="text-[11px] text-stone-400">Dari Dana Desa (DD), ADD, & PADes</span>
+                <span className="text-[11px] text-stone-400">
+                  Dari Dana Desa (DD), ADD, & PADes
+                </span>
               </div>
               <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 font-medium uppercase block">Total Belanja & Realisasi {profil.apbdesRingkasan.tahunAnggaran}</span>
+                <span className="text-xs text-stone-500 font-medium uppercase block">
+                  Total Belanja & Realisasi{" "}
+                  {profil.apbdesRingkasan.tahunAnggaran}
+                </span>
                 <span className="text-2xl font-serif-title font-bold text-stone-900 mt-1 block">
                   {profil.apbdesRingkasan.totalBelanja || "-"}
                 </span>
@@ -204,25 +228,47 @@ export default async function ProfilDesaPage() {
         ) : null}
 
         {/* Kontak Kantor (dari CMS) */}
-        {profil.kontakKantor && (profil.kontakKantor.alamat || profil.kontakKantor.telepon) ? (
-          <section id="kontak-kantor" className="p-8 sm:p-10 rounded-xl bg-white border border-stone-200 space-y-4 scroll-mt-28 shadow-xs">
-            <h2 className="text-xl font-serif-title font-semibold text-stone-900">Kantor & Layanan Resmi Desa Cijeruk</h2>
+        {profil.kontakKantor &&
+        (profil.kontakKantor.alamat || profil.kontakKantor.telepon) ? (
+          <section
+            id="kontak-kantor"
+            className="p-8 sm:p-10 rounded-xl bg-white border border-stone-200 space-y-4 scroll-mt-28 shadow-xs"
+          >
+            <h2 className="text-xl font-serif-title font-semibold text-stone-900">
+              Kantor & Layanan Resmi Desa Cijeruk
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
               <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 font-medium uppercase block">Alamat Kantor</span>
-                <span className="text-xs text-stone-900 font-medium mt-1 block leading-relaxed">{profil.kontakKantor.alamat || "-"}</span>
+                <span className="text-xs text-stone-500 font-medium uppercase block">
+                  Alamat Kantor
+                </span>
+                <span className="text-xs text-stone-900 font-medium mt-1 block leading-relaxed">
+                  {profil.kontakKantor.alamat || "-"}
+                </span>
               </div>
               <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 font-medium uppercase block">Telepon / WhatsApp</span>
-                <span className="text-xs text-stone-900 font-medium mt-1 block">{profil.kontakKantor.telepon || "-"}</span>
+                <span className="text-xs text-stone-500 font-medium uppercase block">
+                  Telepon / WhatsApp
+                </span>
+                <span className="text-xs text-stone-900 font-medium mt-1 block">
+                  {profil.kontakKantor.telepon || "-"}
+                </span>
               </div>
               <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 font-medium uppercase block">Email Resmi</span>
-                <span className="text-xs text-stone-900 font-medium mt-1 block">{profil.kontakKantor.email || "-"}</span>
+                <span className="text-xs text-stone-500 font-medium uppercase block">
+                  Email Resmi
+                </span>
+                <span className="text-xs text-stone-900 font-medium mt-1 block">
+                  {profil.kontakKantor.email || "-"}
+                </span>
               </div>
               <div className="p-4 rounded-lg bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 font-medium uppercase block">Jam Pelayanan</span>
-                <span className="text-xs text-stone-900 font-medium mt-1 block">{profil.kontakKantor.jamLayanan || "-"}</span>
+                <span className="text-xs text-stone-500 font-medium uppercase block">
+                  Jam Pelayanan
+                </span>
+                <span className="text-xs text-stone-900 font-medium mt-1 block">
+                  {profil.kontakKantor.jamLayanan || "-"}
+                </span>
               </div>
             </div>
           </section>
